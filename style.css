@@ -1,0 +1,55 @@
+body {
+    font-size: 1em;
+    color: #666;
+    margin: 20px;
+    width: 760px;
+}
+
+.channels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    margin-bottom: 20px;
+}
+.channels > div {
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.schedule {
+    max-height: 340px;
+    overflow: scroll;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    font-size: 0.85em;
+}
+.item {
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #666;
+}
+.item:hover {
+    text-decoration: underline;
+}
+.item > .time, .item > .cur {
+    font-weight: bold;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-column-gap: 20px;
+    margin-bottom: 20px;
+}
+.days > div {
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.2s ease-in;
+    color: rgba(200, 200, 200, 0.55);
+}
+.days > div:hover, .days > div.active {
+    color: rgba(100, 100, 100, 1);
+}

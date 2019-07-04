@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+  
+    "name": "tvprogram",
+    "description": "TV program",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_title": "Show tv program",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [ 
+        "https://tv.mail.ru/voronezh/channel/*"
+    ]
+}
