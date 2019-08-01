@@ -7,8 +7,8 @@ body {
 
 .channels {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 20px;
+    grid-template-columns: 40px 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
     margin-bottom: 20px;
 }
 .channels > div {
@@ -20,9 +20,12 @@ body {
     max-height: 340px;
     overflow: scroll;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 20px;
+    grid-template-columns: 40px 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
     font-size: 0.85em;
+}
+.schedule > div.timeline {
+    border-right: 1px solid #222;
 }
 .item {
     display: block;
