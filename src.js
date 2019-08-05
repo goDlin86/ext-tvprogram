@@ -7,7 +7,11 @@ import 'babel-polyfill'
 
 moment.locale('ru')
 
-const channels = ['850', '977', '2060', '1173']
+const channels = ['0', '850', '977', '2060', '1173']
+const hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
+
+const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
+const urls = [...channels.slice(1).map(channel => baseUrl + channel + '&date=')]
 
 class App extends React.Component {
     constructor(props) {
@@ -21,52 +25,49 @@ class App extends React.Component {
     componentDidMount() {
         this.fetchData()
     }
-    fetchData() {
-        channels.map(async (channel, i) => {
-            const url = "https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id=" + channels[i] + "&date=" + this.state.date.format("YYYY-MM-DD")
+    async fetchData() {
+        try {
+            const datas = await Promise.all(
+                urls.map(url => fetch(url + this.state.date.format("YYYY-MM-DD")).then(response => response.json()))
+            )
 
-            const res = await fetch(url)
-            const tv = await res.json()
+            let program = [[],[],[],[]]
+            datas.map((tv, i) => {
+                tv.schedule[0].event.current.map(cur => {
+                    const time = cur.start
+                    const title = [cur.name, cur.episode_title].join(" ")
+                    const url = 'https://tv.mail.ru' + cur.url
 
-            let program = []
-            tv.schedule[0].event.current.map(cur => {
-                const time = cur.start
-                const title = [cur.name, cur.episode_title].join(" ")
-                const url = "https://tv.mail.ru" + cur.url
+                    const hour = time.split(":")[0]
 
-                let period = "morning"
-                const timePeriod = time.split(":")[0]
-                if (timePeriod >= 12 && timePeriod < 20)
-                    period = "daytime"
-                else if (timePeriod >= 20 || timePeriod < 5)
-                    period = "evening"
-
-                program.push({ time, title, url, period })
+                    program[i].push({ time, title, url, hour })
+                })
             })
+            this.setState({ program })
 
-            let p = this.state.program.slice()
-            p[i] = program
-            this.setState({ program: p })
-        })
+        } catch (error) {
+            console.log(error)
+        }
     }
     setDate(i) {
         this.setState({ day: i, date: moment().add(i, 'd'), program: [] }, this.fetchData)
     }
-    getPeriodProgram(period) {
+    printTimeline() {
         const { program } = this.state
-        return (
+        
+        return hours.map((hour) => 
             channels.map((channel, j) => 
                 <div key={channel}>
-                    {program[j] && program[j].length == 0 && '...'}
-                    {program[j] && program[j].length > 0 && program[j].filter(item => item.period == period).map((item, i) => 
+                    {j == 0 && <div className='timeline' key={hour}></div>}
+                    {j > 0 && program[j-1] && program[j-1].length > 0 && program[j-1].filter(item => item.hour == hour).map((item, i) => 
                         <a className="item" href={item.url} target="_blank" key={i}>
                             <span className="time">{item.time + ' '}</span>
-                            <span className={this.state.day == 0 && program[j][0].time == item.time ? "title cur" : "title"}>{item.title}</span>
+                            <span className={this.state.day == 0 && program[j-1][0].time == item.time ? "title cur" : "title"}>{item.title}</span>
                         </a>
                     )}
                 </div>
             )
-        )
+        )     
     }
     render() {
         const { day, program } = this.state
@@ -86,6 +87,7 @@ class App extends React.Component {
                     </div>
 
                     <div className="channels">
+                        <div></div>
                         <div className="fchannel">Первый</div>
                         <div className="schannel">Россия</div>
                         <div className="mchannel">МатчТВ</div>
@@ -94,9 +96,7 @@ class App extends React.Component {
                 </header>
 
                 <div className="schedule">
-                    {this.getPeriodProgram("morning")}
-                    {this.getPeriodProgram("daytime")}
-                    {this.getPeriodProgram("evening")}                    
+                    {this.printTimeline()}                  
                 </div>
             </div>
         )
