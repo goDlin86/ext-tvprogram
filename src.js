@@ -9,6 +9,7 @@ moment.locale('ru')
 
 const channels = ['850', '977', '2060', '1173']
 const hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
+const mins = [0, 10, 20, 30, 40, 50]
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
@@ -38,9 +39,10 @@ class App extends React.Component {
                     const title = [cur.name, cur.episode_title].join(" ")
                     const url = 'https://tv.mail.ru' + cur.url
 
-                    const hour = time.split(":")[0]
+                    const hour = parseInt(time.split(":")[0])
+                    const min = parseInt(time.split(":")[1])
 
-                    programTV[i].push({ time, title, url, hour })
+                    programTV[i].push({ time, title, url, hour, min })
                 })
             })
             const program = hours.map((hour) => {
@@ -64,21 +66,34 @@ class App extends React.Component {
         const lineStyle = { top: m/60 * 100 + '%' }
         
         return program.map(({ hour, programs }) => {
-            if (programs.reduce((acc, cur) => acc + cur.length, 0) > 0)
-                return <div className="hour" key={hour}>
-                    {hour == h && <div className="line" style={lineStyle}>{hour + ":" + m}</div>}
-                    <div className='timeline'>{(hour < 10 && "0") + hour + ":00"}</div>
-                    {programs.map((tv, j) => 
-                        <div key={channels[j]}>
-                            {tv && tv.length > 0 && tv.map((item, i) => 
-                                <a className="item" href={item.url} target="_blank" key={i}>
-                                    <span className="time">{item.time + ' '}</span>
-                                    <span className={day == 0 && i == 0 ? "title cur" : "title"}>{item.title}</span>
-                                </a>
+            if (programs.reduce((acc, cur) => acc + cur.length, 0) > 0) {
+                const minPrograms = mins.map((m) => 
+                    programs.map((p) => 
+                        p.filter((item) => Math.floor(item.min/10)*10 == m)
+                    )
+                )
+
+                return (
+                    <div className="hour" key={hour}>
+                        {hour == h && <div className="line" style={lineStyle}>{hour + ":" + (m < 10 ? "0" : "") + m}</div>}
+                        <div className="timeline">{(hour < 10 && "0") + hour + ":00"}</div>
+                        <div className="programs">
+                            {minPrograms.map((p) =>
+                                p.map((tv, j) => 
+                                    <div key={channels[j]}>
+                                        {tv && tv.length > 0 && tv.map((item, i) => 
+                                            <a className="item" href={item.url} target="_blank" key={i}>
+                                                <span className="time">{item.time + ' '}</span>
+                                                <span className={day == 0 && i == 0 ? "title cur" : "title"}>{item.title}</span>
+                                            </a>
+                                        )}
+                                    </div>
+                                )
                             )}
                         </div>
-                    )}
-                </div> 
+                    </div>
+                )
+            }
         })     
     }
     render() {
