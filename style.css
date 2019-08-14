@@ -20,28 +20,21 @@ body {
     max-height: 340px;
     overflow: scroll;
     font-size: 0.85em;
-}
-.schedule .hour {
-    position: relative;
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px repeat(4, 1fr);
     grid-column-gap: 15px;
 }
-.schedule .programs {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 15px;
-}
+
 .schedule .hour:nth-of-type(2n-1) {
     background-color: rgba(232, 232, 232, 0.5);
 }
-.schedule div.timeline {
+.schedule .timeline {
     border-right: 1px solid #222;
     height: 100%;
 }
 .schedule .line {
     position: absolute;
-    width: 100%;
+    width: 760px;
     font-weight: bold;
     border-top: 2px solid rgba(100, 100, 100, 0.15);
 }
