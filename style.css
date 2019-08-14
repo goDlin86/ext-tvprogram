@@ -17,26 +17,29 @@ body {
 }
 
 .schedule {
+    position: relative;
     max-height: 340px;
     overflow: scroll;
     font-size: 0.85em;
     display: grid;
     grid-template-columns: 40px repeat(4, 1fr);
+    grid-auto-rows: 16px;
     grid-column-gap: 15px;
 }
 
-.schedule .hour:nth-of-type(2n-1) {
-    background-color: rgba(232, 232, 232, 0.5);
-}
 .schedule .timeline {
     border-right: 1px solid #222;
     height: 100%;
 }
 .schedule .line {
     position: absolute;
-    width: 760px;
+    width: 100%;
     font-weight: bold;
     border-top: 2px solid rgba(100, 100, 100, 0.15);
+}
+.schedule .program {
+    margin: 2px 0;
+    background-color: rgba(232, 232, 232, 0.5);
 }
 .item {
     display: block;
