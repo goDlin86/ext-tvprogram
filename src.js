@@ -49,7 +49,7 @@ class App extends React.Component {
             })
             programNew.map(p => 
                 p.map((item, i, program) => {
-                    item.dur = program[i+1] ? (program[i+1].hour - item.hour) * 60 + (program[i+1].min - item.min) : 0
+                    item.dur = program[i+1] ? (program[i+1].hour-item.hour)*60+(program[i+1].min-item.min) : (29-item.hour)*60-item.min
                 })
             )
             const minHour = Math.min(...programNew.map(p => p[0].hour))
@@ -98,16 +98,27 @@ class App extends React.Component {
 
         return program.map((p, i) => 
             p.map((item, k) => {
-                const row = (item.hour - minHour) * 12 + Math.floor(item.min/5) + 1
+                const row = (item.hour - minHour)*12 + Math.floor(item.min/5) + 1
                 const span = row + Math.floor(item.dur/5)
                 const style = { gridColumn: i+2, gridRow: row + " / " + span }
+                let heightLine = {}
+                if (day == 0 && k == 0) {
+                    let hour = moment().hour() 
+                    if (hour < 5) hour += 24
+                    const min = moment().minute()
+
+                    const height = ((hour - item.hour)*60 + min - item.min)/item.dur*100
+
+                    heightLine.height = height + "%"
+                }
 
                 return (
-                    <div key={k} className="program" style={style}>
-                        <a className="item" href={item.url} target="_blank" key={k}>
-                            <span className="time">{item.time + ' '}</span>
-                            <span className={day == 0 && k == 0 ? "title cur" : "title"}>{item.title}</span>
+                    <div key={k*i} className="program" style={style}>
+                        <a className="item" href={item.url} target="_blank">
+                            <div className="time">{item.time}</div>
+                            <div className={day == 0 && k == 0 ? "title cur" : "title"}>{item.title}</div>
                         </a>
+                        {day == 0 && k == 0 && <div className="line" style={heightLine}></div>}
                     </div>
                 )
             })
@@ -129,7 +140,7 @@ class App extends React.Component {
             if (hour < 5) hour += 24
             const min = moment().minute()
 
-            const top = ((hour - minHour) * 12 + Math.floor(min/5) + 1 + min%5/5)*16
+            const top = ((hour - minHour)*12 + Math.floor(min/5) + min%5/5)*20
 
             styleLine.top = top + 'px'
         }
@@ -156,7 +167,7 @@ class App extends React.Component {
                         const style = { gridColumn: 1, gridRow: i*12+1 }
                         return <div style={style}>{h + " -"}</div>
                     })}
-                    <div className="line" style={styleLine}>1</div>
+                    <div className="line" style={styleLine}></div>
                     {this.printSchedule()}
                 </div>
             </div>
