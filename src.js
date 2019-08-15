@@ -20,7 +20,8 @@ class App extends React.Component {
         this.state = {
             day: 0,
             date: moment(),
-            program: []
+            program: [],
+            minHour: 0
         }
     }
     componentDidMount() {
@@ -32,24 +33,58 @@ class App extends React.Component {
                 urls.map(url => fetch(url + this.state.date.format("YYYY-MM-DD")).then(response => response.json()))
             )
 
-            let programTV = [[],[],[],[]]
+            let programNew = [[],[],[],[]]
             datas.map((tv, i) => {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
                     const title = [cur.name, cur.episode_title].join(" ")
                     const url = 'https://tv.mail.ru' + cur.url
 
-                    const hour = parseInt(time.split(":")[0])
+                    let hour = parseInt(time.split(":")[0])
+                    if (hour < 5) hour += 24
                     const min = parseInt(time.split(":")[1])
 
-                    programTV[i].push({ time, title, url, hour, min })
+                    programNew[i].push({ time, title, url, hour, min })
                 })
             })
-            const program = hours.map((hour) => {
-                return { hour, programs: programTV.map((tv) => tv.filter((item) => item.hour == hour)) }
-            })
+            programNew.map(p => 
+                p.map((item, i, program) => {
+                    item.dur = program[i+1] ? (program[i+1].hour-item.hour)*60+(program[i+1].min-item.min) : (29-item.hour)*60-item.min
+                })
+            )
+            const minHour = Math.min(...programNew.map(p => p[0].hour))
 
-            this.setState({ program })
+            
+
+            let program = programNew
+            // const hour = moment().hour()
+            // const min = moment().minute()
+            // hours.map((h) =>
+            //     mins.map((m) => {
+            //         const items = programNew.filter((item) => item.hour == h && Math.floor(item.min/10)*10 == m)
+            //         const now = this.state.day == 0 && hour == h && Math.floor(min/10)*10 == m
+            //         const style = { top: (min - m)/10 * 100 + '%' }
+            //         if (items.length > 0)
+            //             program.push([{ time: (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m, now, style }, ...items])
+            //     })
+            // )
+            // const program = programNew.sort((a, b) => {
+            //     const h1 = a.hour < 5 ? a.hour + 24 : a.hour
+            //     const m1 = a.min
+
+            //     const h2 = b.hour < 5 ? b.hour + 24 : b.hour
+            //     const m2 = b.min
+
+            //     let results = h1 < h2 ? -1 : h1 > h2 ? 1 : 0
+
+            //     if (results === 0) {
+            //         results = m1 < m2 ? -1 : m1 > m2 ? 1 : 0
+            //     }
+               
+            //     return results
+            // })
+
+            this.setState({ program, minHour })
 
         } catch (error) {
             console.log(error)
@@ -58,46 +93,39 @@ class App extends React.Component {
     setDate(i) {
         this.setState({ day: i, date: moment().add(i, 'd'), program: [] }, this.fetchData)
     }
-    printTimeline() {
-        const { program, day } = this.state
+    printSchedule() {
+        const { program, day, minHour } = this.state
 
-        const h = day == 0 ? moment().hour() : 5
-        const m = day == 0 ? moment().minute() : 0
-        const lineStyle = { top: m/60 * 100 + '%' }
-        
-        return program.map(({ hour, programs }) => {
-            if (programs.reduce((acc, cur) => acc + cur.length, 0) > 0) {
-                const minPrograms = mins.map((m) => 
-                    programs.map((p) => 
-                        p.filter((item) => Math.floor(item.min/10)*10 == m)
-                    )
-                )
+        return program.map((p, i) => 
+            p.map((item, k) => {
+                const row = (item.hour - minHour)*12 + Math.floor(item.min/5) + 1
+                const span = row + Math.floor(item.dur/5)
+                const style = { gridColumn: i+2, gridRow: row + " / " + span }
+                let heightLine = {}
+                if (day == 0 && k == 0) {
+                    let hour = moment().hour() 
+                    if (hour < 5) hour += 24
+                    const min = moment().minute()
+
+                    const height = ((hour - item.hour)*60 + min - item.min)/item.dur*100
+
+                    heightLine.height = height + "%"
+                }
 
                 return (
-                    <div className="hour" key={hour}>
-                        {hour == h && <div className="line" style={lineStyle}>{hour + ":" + (m < 10 ? "0" : "") + m}</div>}
-                        <div className="timeline">{(hour < 10 && "0") + hour + ":00"}</div>
-                        <div className="programs">
-                            {minPrograms.map((p) =>
-                                p.map((tv, j) => 
-                                    <div key={channels[j]}>
-                                        {tv && tv.length > 0 && tv.map((item, i) => 
-                                            <a className="item" href={item.url} target="_blank" key={i}>
-                                                <span className="time">{item.time + ' '}</span>
-                                                <span className={day == 0 && i == 0 ? "title cur" : "title"}>{item.title}</span>
-                                            </a>
-                                        )}
-                                    </div>
-                                )
-                            )}
-                        </div>
+                    <div key={k*i} className="program" style={style}>
+                        <a className="item" href={item.url} target="_blank">
+                            <div className="time">{item.time}</div>
+                            <div className={day == 0 && k == 0 ? "title cur" : "title"}>{item.title}</div>
+                        </a>
+                        {day == 0 && k == 0 && <div className="line" style={heightLine}></div>}
                     </div>
                 )
-            }
-        })     
+            })
+        )
     }
     render() {
-        const { day } = this.state
+        const { day, minHour } = this.state
 
         const days = []
         for (let i = 0; i < 7; i++) {
@@ -105,6 +133,18 @@ class App extends React.Component {
                 {moment().add(i, 'd').format("ddd")}<br/>{moment().add(i, 'd').format("DD MMM")}
             </div>)
         }
+
+        let styleLine = {}
+        if (day == 0) {
+            let hour = moment().hour() 
+            if (hour < 5) hour += 24
+            const min = moment().minute()
+
+            const top = ((hour - minHour)*12 + Math.floor(min/5) + min%5/5)*20
+
+            styleLine.top = top + 'px'
+        }
+        
         
         return (
             <div>
@@ -123,7 +163,12 @@ class App extends React.Component {
                 </header>
 
                 <div className="schedule">
-                    {this.printTimeline()}
+                    {hours.slice(hours.findIndex(el => el == minHour)).map((h, i) => {
+                        const style = { gridColumn: 1, gridRow: i*12+1 }
+                        return <div style={style}>{h + " -"}</div>
+                    })}
+                    <div className="line" style={styleLine}></div>
+                    {this.printSchedule()}
                 </div>
             </div>
         )

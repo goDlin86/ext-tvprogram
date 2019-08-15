@@ -7,8 +7,8 @@ body {
 
 .channels {
     display: grid;
-    grid-template-columns: 40px 1fr 1fr 1fr 1fr;
-    grid-column-gap: 15px;
+    grid-template-columns: 30px repeat(4, 1fr);
+    grid-column-gap: 5px;
     margin-bottom: 20px;
 }
 .channels > div {
@@ -17,44 +17,55 @@ body {
 }
 
 .schedule {
+    position: relative;
     max-height: 340px;
     overflow: scroll;
     font-size: 0.85em;
-}
-.schedule .hour {
-    position: relative;
     display: grid;
-    grid-template-columns: 40px 1fr;
-    grid-column-gap: 15px;
+    grid-template-columns: 30px repeat(4, 1fr);
+    grid-auto-rows: 20px;
+    grid-column-gap: 5px;
 }
-.schedule .programs {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 15px;
-}
-.schedule .hour:nth-of-type(2n-1) {
-    background-color: rgba(232, 232, 232, 0.5);
-}
-.schedule div.timeline {
-    border-right: 1px solid #222;
-    height: 100%;
-}
+
 .schedule .line {
     position: absolute;
     width: 100%;
     font-weight: bold;
     border-top: 2px solid rgba(100, 100, 100, 0.15);
 }
+.schedule .program {
+    position: relative;
+    margin: 2px 0;
+}
 .item {
     display: block;
-    margin: 10px 0;
+    box-sizing: border-box;
+    padding: 4px;
+    height: 100%;
     text-decoration: none;
     color: #666;
+    transition: 0.2s;
+    background-color: rgba(232, 232, 232, 0.6);
 }
 .item:hover {
-    text-decoration: underline;
+    background-color: rgba(232, 232, 232, 1);
+    box-shadow: 0 0 20px rgba(132, 132, 132, 0.2);
 }
-.item > .time, .item > .cur {
+.item > .title{
+    margin-top: 4px;
+    position: sticky;
+}
+.item > .time {
+    font-size: 0.7em;
+}
+.program > .line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    background-color: rgba(50, 50, 50, 0.15);
+}
+.item > .cur {
     font-weight: bold;
 }
 
