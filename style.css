@@ -48,12 +48,13 @@ body {
     background-color: rgba(232, 232, 232, 0.6);
 }
 .item:hover {
-    background-color: rgba(232, 232, 232, 1);
+    background-color: rgba(232, 232, 232, 0.85);
     box-shadow: 0 0 20px rgba(132, 132, 132, 0.2);
 }
 .item > .title{
     margin-top: 4px;
     position: sticky;
+    top: 4px;
 }
 .item > .time {
     font-size: 0.7em;
