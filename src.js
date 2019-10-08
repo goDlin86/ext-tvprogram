@@ -9,7 +9,6 @@ moment.locale('ru')
 
 const channels = ['850', '977', '2060', '1173']
 const hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
-const mins = [0, 10, 20, 30, 40, 50]
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
@@ -38,7 +37,7 @@ class App extends React.Component {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
                     const title = [cur.name, cur.episode_title].join(" ")
-                    const url = 'https://tv.mail.ru' + cur.url
+                    const url = "https://tv.mail.ru" + cur.url
 
                     let hour = parseInt(time.split(":")[0])
                     if (hour < 5) hour += 24
@@ -91,7 +90,7 @@ class App extends React.Component {
         }
     }
     setDate(i) {
-        this.setState({ day: i, date: moment().add(i, 'd'), program: [] }, this.fetchData)
+        this.setState({ day: i, date: moment().add(i, "d"), program: [] }, this.fetchData)
     }
     printSchedule() {
         const { program, day, minHour } = this.state
@@ -130,7 +129,7 @@ class App extends React.Component {
         const days = []
         for (let i = 0; i < 7; i++) {
             days.push(<div className={day == i ? " active" : "" } onClick={this.setDate.bind(this, i)} key={i}>
-                {moment().add(i, 'd').format("ddd")}<br/>{moment().add(i, 'd').format("DD MMM")}
+                {moment().add(i, "d").format("ddd")}<br/>{moment().add(i, "d").format("DD MMM")}
             </div>)
         }
 
@@ -142,7 +141,7 @@ class App extends React.Component {
 
             const top = ((hour - minHour)*12 + Math.floor(min/5) + min%5/5)*20
 
-            styleLine.top = top + 'px'
+            styleLine.top = top + "px"
         }
         
         
