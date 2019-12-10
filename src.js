@@ -53,35 +53,7 @@ class App extends React.Component {
             )
             const minHour = Math.min(...programNew.map(p => p[0].hour))
 
-            
-
             let program = programNew
-            // const hour = moment().hour()
-            // const min = moment().minute()
-            // hours.map((h) =>
-            //     mins.map((m) => {
-            //         const items = programNew.filter((item) => item.hour == h && Math.floor(item.min/10)*10 == m)
-            //         const now = this.state.day == 0 && hour == h && Math.floor(min/10)*10 == m
-            //         const style = { top: (min - m)/10 * 100 + '%' }
-            //         if (items.length > 0)
-            //             program.push([{ time: (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m, now, style }, ...items])
-            //     })
-            // )
-            // const program = programNew.sort((a, b) => {
-            //     const h1 = a.hour < 5 ? a.hour + 24 : a.hour
-            //     const m1 = a.min
-
-            //     const h2 = b.hour < 5 ? b.hour + 24 : b.hour
-            //     const m2 = b.min
-
-            //     let results = h1 < h2 ? -1 : h1 > h2 ? 1 : 0
-
-            //     if (results === 0) {
-            //         results = m1 < m2 ? -1 : m1 > m2 ? 1 : 0
-            //     }
-               
-            //     return results
-            // })
 
             this.setState({ program, minHour })
 
