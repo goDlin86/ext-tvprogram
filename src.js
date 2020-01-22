@@ -1,11 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import moment from 'moment'
-import 'moment/locale/ru'
+//import moment from 'moment'
+import dayjs from 'dayjs'
+//import 'moment/locale/ru'
+import 'dayjs/locale/ru'
 
 import 'babel-polyfill'
 
-moment.locale('ru')
+//moment.locale('ru')
+dayjs.locale('ru')
 
 const channels = ['850', '977', '2060', '1173']
 const hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
@@ -18,7 +21,7 @@ class App extends React.Component {
         super(props)
         this.state = {
             day: 0,
-            date: moment(),
+            date: dayjs(),
             program: [],
             minHour: 0
         }
@@ -62,7 +65,7 @@ class App extends React.Component {
         }
     }
     setDate(i) {
-        this.setState({ day: i, date: moment().add(i, "d"), program: [] }, this.fetchData)
+        this.setState({ day: i, date: dayjs().add(i, "day"), program: [] }, this.fetchData)
     }
     printSchedule() {
         const { program, day, minHour } = this.state
@@ -74,9 +77,9 @@ class App extends React.Component {
                 const style = { gridColumn: i+2, gridRow: row + " / " + span }
                 let heightLine = {}
                 if (day == 0 && k == 0) {
-                    let hour = moment().hour() 
+                    let hour = dayjs().hour() 
                     if (hour < 5) hour += 24
-                    const min = moment().minute()
+                    const min = dayjs().minute()
 
                     const height = ((hour - item.hour)*60 + min - item.min)/item.dur*100
 
@@ -101,15 +104,15 @@ class App extends React.Component {
         const days = []
         for (let i = 0; i < 7; i++) {
             days.push(<div className={day == i ? " active" : "" } onClick={this.setDate.bind(this, i)} key={i}>
-                {moment().add(i, "d").format("ddd")}<br/>{moment().add(i, "d").format("DD MMM")}
+                {dayjs().add(i, "day").format("dddd")}<br/>{dayjs().add(i, "day").format("DD MMM")}
             </div>)
         }
 
         let styleLine = {}
         if (day == 0) {
-            let hour = moment().hour() 
+            let hour = dayjs().hour() 
             if (hour < 5) hour += 24
-            const min = moment().minute()
+            const min = dayjs().minute()
 
             const top = ((hour - minHour)*12 + Math.floor(min/5) + min%5/5)*20
 
