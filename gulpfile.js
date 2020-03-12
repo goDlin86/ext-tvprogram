@@ -1,32 +1,38 @@
-var gulp = require('gulp'),
-    browserify = require('browserify'),
-    babelify = require('babelify'),
-    source = require('vinyl-source-stream'),
-    uglify = require('gulp-uglify'),
-    streamify = require('gulp-streamify')
+const { src, dest } = require('gulp')
+const browserify = require('gulp-browserify')
+const babelify = require('babelify')
+const uglify = require('gulp-uglify')
+const concat = require('gulp-concat')
 
-gulp.task('default', function() {
-    return browserify({
-          entries: 'src.js',
-          extensions: ['.js'],
-          debug: true
-        })
-        .transform(babelify, {presets: ['@babel/react', '@babel/env']})
-        .bundle()
-        .pipe(source('main.js'))
-        .pipe(gulp.dest('./'))
-})
 
-gulp.task('production', function() {
-    process.env.NODE_ENV = 'production'
-    return browserify({
-          entries: 'src.js',
-          extensions: ['.js'],
-          debug: true
-        })
-        .transform(babelify, {presets: ['@babel/react', '@babel/env']})
-        .bundle()
-        .pipe(source('main.js'))
-        .pipe(streamify(uglify()))
-        .pipe(gulp.dest('./'))
-})
+function js() {
+    return src('src.js')
+      .pipe(browserify({
+        //insertGlobals: true, 
+        debug: true,
+        transform: [babelify.configure({
+          presets: ['@babel/env', '@babel/react']
+          //sourceMaps: true
+        })]
+      }))
+      .pipe(concat('main.js'))
+      .pipe(dest('.'))
+  }
+
+function jsProd() {
+    return src('src.js')
+        .pipe(browserify({
+            //insertGlobals: true, 
+            debug: false,
+            transform: [babelify.configure({
+                presets: ['@babel/env', '@babel/react']
+                //sourceMaps: true
+            })]
+        }))
+        .pipe(concat('main.js'))
+        .pipe(uglify())
+        .pipe(dest('.'))
+}
+
+exports.js = js
+exports.jsProd = jsProd
