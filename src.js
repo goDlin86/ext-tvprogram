@@ -12,7 +12,7 @@ import 'babel-polyfill'
 
 dayjs.locale('ru')
 
-const channels = ['850', '977', '2060', '1173']
+const channels = ['850', '977', '2060', '1395']
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
@@ -78,7 +78,7 @@ const App = () => {
                     <div className="fchannel">Первый</div>
                     <div className="schannel">Россия</div>
                     <div className="mchannel">МатчТВ</div>
-                    <div className="apchannel">AnimalPlanet</div>
+                    <div className="apchannel">НТВ</div>
                 </div>
             </header>
 
