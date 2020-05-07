@@ -13,7 +13,7 @@
   "author": "goDlin",
   "license": "ISC",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.8.7",
     "dayjs": "^1.8.26",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -22,8 +22,10 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
+    "@babel/register": "^7.9.0",
     "babelify": "^10.0.0",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.1",
     "gulp-uglify": "^3.0.2"

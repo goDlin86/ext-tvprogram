@@ -7,7 +7,7 @@ import Schedule from './components/schedule'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
-import 'babel-polyfill'
+import '@babel/polyfill'
 
 
 dayjs.locale('ru')
