@@ -10,22 +10,22 @@ const Schedule = ({ program, day, minHour }) => {
         if (hour < 5) hour += 24
         const min = dayjs().minute()
 
-        const top = ((hour-minHour)*12 + Math.floor(min/5) + min%5/5)*20
+        const top = ((hour-minHour)*60 + min/*Math.floor(min/5) + min%5/5*/)*4
         styleLine.top = top + "px"
     }
 
     return (
         <div className='schedule'>
             {hours.slice(hours.findIndex(el => el == minHour)).map((h, i) => (
-                <div style={{ gridColumn: 1, gridRow: i*12+1 }} key={i}>{h + " -"}</div>
+                <div style={{ gridColumn: 1, gridRow: i*60+1 }} key={i}>{h + " -"}</div>
             ))}
 
             <div className="line" style={styleLine}></div>
 
             {program.map((p, i) => 
                 p.map((item, k) => {
-                    const row = (item.hour - minHour)*12 + Math.floor(item.min/5) + 1
-                    const span = row + Math.floor(item.dur/5)
+                    const row = (item.hour - minHour)*60 + item.min + 1
+                    const span = row + item.dur
                     const style = { gridColumn: i+2, gridRow: row + " / " + span }
                     let heightLine = {}
                     if (day == 0 && k == 0) {
