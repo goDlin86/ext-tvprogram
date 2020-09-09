@@ -59,6 +59,7 @@ body {
     color: var(--item-text-colr);
     transition: 0.2s;
     background-color: var(--item-bg-color);
+    border-radius: 5px;
 }
 .item:hover {
     background-color: var(--item-bg-hover);
