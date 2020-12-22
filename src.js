@@ -54,7 +54,6 @@ const App = () => {
             )
             setMinHour(Math.min(...programNew.map(p => p[0].hour)))
 
-            //let program = programNew
             setProgram(programNew)
 
         } catch (error) {
