@@ -49,12 +49,12 @@ body {
     width: 300px;
 }
 
-.schedule .line {
+.schedule > .line {
     position: absolute;
-    width: 100%;
-    font-weight: bold;
-    border-top: 2px solid var(--line-bg-color);
-    opacity: 0.5;
+    height: 100%;
+    width: 2px;
+    background-color: var(--line-bg-color);
+    opacity: 0.6;
     z-index: 10;
 }
 .schedule .program {
@@ -90,9 +90,9 @@ body {
 .program > .line {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 2px;
+    height: 2px;
     background-color: var(--line-bg-color);
+    opacity: 0.6;
 }
 .item > .cur {
     font-weight: bold;
