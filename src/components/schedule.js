@@ -53,16 +53,21 @@ const hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
 //     )
 // }
 
-const Schedule = ({ program, day }) => {
+const Schedule = ({ program, day, minHour }) => {
     return (
         <>
             {program.map((p, i) => (
                 <div className='row'>
                     {p.map((item, k) => {
-
+                        const width = item.dur * 5 + 'px'
+                        const style = { width }
+                        if (k == 0) {
+                            const paddingLeft = ((item.hour - minHour) * 60 + item.min) * 5 + 'px'
+                            style.paddingLeft = paddingLeft
+                        }
 
                         return (
-                            <div className='program' key={k + i*10}>
+                            <div className='program' style={style} key={k + i*10}>
                                 <a className='item' href={item.url} target='_blank'>
                                     <div className='time'>{item.time}</div>
                                     <div className={day == 0 && k == 0 ? 'title cur' : 'title'}>{item.title}</div>

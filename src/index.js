@@ -75,7 +75,7 @@ const App = () => {
                 <Channels />
                 <div className='schedule'>
                     <Timeline minHour={minHour} />
-                    <Schedule program={program} day={day} />
+                    <Schedule program={program} day={day} minHour={minHour} />
                 </div>
             </div>
         </div>
