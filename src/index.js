@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 
 import Days from './components/days'
+import Channels from './components/channels'
+import Timeline from './components/timeline'
 import Schedule from './components/schedule'
+import './style.css'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
-import '@babel/polyfill'
-
-
 dayjs.locale('ru')
 
-const channels = ['850', '977', '2060', '1395']
+const channels = ['850', '977', '2060', '1395', '1671']
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
@@ -33,7 +33,7 @@ const App = () => {
                 urls.map(url => fetch(url + date.format("YYYY-MM-DD")).then(response => response.json()))
             )
 
-            let programNew = [[],[],[],[]]
+            let programNew = [[],[],[],[],[]]
             datas.map((tv, i) => {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
@@ -69,19 +69,15 @@ const App = () => {
         
     return (
         <div>
-            <header>
-                <Days day={day} changeDate={changeDate} />
+            <Days day={day} changeDate={changeDate} />
 
-                <div className="channels">
-                    <div></div>
-                    <div className="fchannel">Первый</div>
-                    <div className="schannel">Россия</div>
-                    <div className="mchannel">МатчТВ</div>
-                    <div className="apchannel">НТВ</div>
+            <div className='scheduleContainer'>
+                <Channels />
+                <div className='schedule'>
+                    <Timeline minHour={minHour} />
+                    <Schedule program={program} day={day} />
                 </div>
-            </header>
-
-            <Schedule program={program} day={day} minHour={minHour} />
+            </div>
         </div>
     )
     

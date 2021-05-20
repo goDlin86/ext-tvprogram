@@ -1,10 +1,10 @@
 {
   "name": "tvprogram",
-  "version": "1.0.0",
+  "version": "1.5",
   "description": "tv program",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "webpack serve --mode development",
+    "build": "webpack --mode production"
   },
   "keywords": [
     "tv",
@@ -13,20 +13,23 @@
   "author": "goDlin",
   "license": "ISC",
   "dependencies": {
-    "@babel/polyfill": "^7.11.5",
     "dayjs": "^1.8.35",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
-    "@babel/register": "^7.11.5",
-    "babelify": "^10.0.0",
-    "gulp": "^4.0.2",
-    "gulp-browserify": "^0.5.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-uglify": "^3.0.2"
+    "@babel/runtime": "^7.14.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.3",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
