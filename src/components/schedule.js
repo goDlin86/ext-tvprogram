@@ -18,8 +18,7 @@ const Schedule = ({ program, day, minHour }) => {
             {program.map((p, i) => (
                 <div className='row'>
                     {p.map((item, k) => {
-                        const width = item.dur * 5 + 'px'
-                        const style = { width }
+                        const style = { width: item.dur * 5 + 'px' }
                         const styleLine = {}
                         if (k == 0) {
                             const paddingLeft = ((item.hour - minHour) * 60 + item.min) * 5 + 'px'
