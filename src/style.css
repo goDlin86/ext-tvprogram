@@ -82,7 +82,7 @@ body {
 .item > .title{
     margin-top: 4px;
     position: sticky;
-    top: 4px;
+    left: 4px;
 }
 .item > .time {
     font-size: 0.7em;

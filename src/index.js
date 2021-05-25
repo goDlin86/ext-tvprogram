@@ -33,7 +33,10 @@ const App = () => {
                 urls.map(url => fetch(url + date.format("YYYY-MM-DD")).then(response => response.json()))
             )
 
-            let programNew = [[],[],[],[],[]]
+            let programNew = []
+            for (let i = 0; i < channels.length; i++) {
+                programNew.push([])                
+            }
             datas.map((tv, i) => {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
