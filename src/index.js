@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
 
 import Days from './components/days'
@@ -22,6 +22,8 @@ const App = () => {
     const [program, setProgram] = useState([])
     const [date, setDate] = useState(dayjs())
     const [minHour, setMinHour] = useState(0)
+
+    const schedule = useRef(null)
         
     useEffect(() => {
         fetchData()
@@ -55,9 +57,13 @@ const App = () => {
                     item.dur = program[i+1] ? (program[i+1].hour-item.hour)*60+(program[i+1].min-item.min) : (29-item.hour)*60-item.min
                 })
             )
+            
             setMinHour(Math.min(...programNew.map(p => p[0].hour)))
 
             setProgram(programNew)
+
+            const scrollLeft = Math.min(...programNew.map(p => p[0].hour * 100 + p[0].min)) % 100 * 5
+            schedule.current.scrollLeft = scrollLeft
 
         } catch (error) {
             console.log(error)
@@ -76,7 +82,7 @@ const App = () => {
 
             <div className='scheduleContainer'>
                 <Channels />
-                <div className='schedule'>
+                <div className='schedule' ref={schedule}>
                     <Timeline minHour={minHour} />
                     <Schedule program={program} day={day} minHour={minHour} />
                 </div>
