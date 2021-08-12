@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 
 import Days from './components/days'
 import Channels from './components/channels'
@@ -9,8 +9,8 @@ import './style.css'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
-
 dayjs.locale('ru')
+
 
 const channels = ['850', '977', '2060', '1395', '1671']
 
@@ -58,11 +58,11 @@ const App = () => {
                 })
             )
             
-            setMinHour(Math.min(...programNew.map(p => p[0].hour)))
+            setMinHour(Math.min(...programNew.map(p => p[0] ? p[0].hour : 29)))
 
             setProgram(programNew)
 
-            const scrollLeft = Math.min(...programNew.map(p => p[0].hour * 100 + p[0].min)) % 100 * 5
+            const scrollLeft = Math.min(...programNew.map(p => p[0] ? p[0].hour * 100 + p[0].min : 2900)) % 100 * 5
             schedule.current.scrollLeft = scrollLeft
 
         } catch (error) {
@@ -92,4 +92,4 @@ const App = () => {
     
 }
 
-ReactDOM.render(<App />, document.getElementById('tv'))
+render(<App />, document.getElementById('tv'))

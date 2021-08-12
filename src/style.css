@@ -24,6 +24,27 @@ body {
     justify-items: center;
 }
 
+.channels > div {
+    width: 32px;
+    height: 32px;
+    background-position: center;
+}
+.channels > div:nth-child(2) {
+    background-image: url(img/1.png);
+}
+.channels > div:nth-child(3) {
+    background-image: url(img/2.jpeg);
+}
+.channels > div:nth-child(4) {
+    background-image: url(img/3.png);
+}
+.channels > div:nth-child(5) {
+    background-image: url(img/4.png);
+}
+.channels > div:nth-child(6) {
+    background-image: url(img/5.png);
+}
+
 .scheduleContainer {
     display: grid;
     grid-template-columns: 50px 1fr;

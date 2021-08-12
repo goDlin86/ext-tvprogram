@@ -7,7 +7,7 @@
 
     "action": {
         "default_title": "Show tv program",
-        "default_popup": "dist/popup.html"
+        "default_popup": "dist/index.html"
     },
 
     "host_permissions": [ 
