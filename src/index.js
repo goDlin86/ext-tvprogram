@@ -42,8 +42,8 @@ const App = () => {
             datas.map((tv, i) => {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
-                    const title = [cur.name, cur.episode_title].join(" ")
-                    const url = "https://tv.mail.ru" + cur.url
+                    const title = [cur.name, cur.episode_title].join(' ')
+                    const url = 'https://tv.mail.ru' + cur.url
 
                     let hour = parseInt(time.split(":")[0])
                     if (hour < 5) hour += 24
@@ -71,7 +71,7 @@ const App = () => {
     }
 
     const changeDate = (i) => {
-        setDate(dayjs().add(i, "day"))
+        setDate(dayjs().add(i, 'day'))
         setProgram([])
         setDay(i)
     }        
