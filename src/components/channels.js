@@ -3,12 +3,7 @@ import React from 'react'
 const Channels = () => {
     return (
         <div className='channels'>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            {[...Array(7).keys()].map(d => <div></div>)}
         </div>
     )
 }
