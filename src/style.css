@@ -127,7 +127,7 @@ body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     column-gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .days > div {
     padding: 5px;
