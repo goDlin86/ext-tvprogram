@@ -5,12 +5,13 @@
     "description": "TV program",
     "version": "1.5",
 
+    "icons": { 
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+       "128": "icons/icon128.png"
+    },
+
     "action": {
-        "default_icon": { 
-            "16": "icons/icon16.png",
-            "48": "icons/icon48.png",
-           "128": "icons/icon128.png"
-        },
         "default_title": "Show tv program",
         "default_popup": "dist/index.html"
     },
