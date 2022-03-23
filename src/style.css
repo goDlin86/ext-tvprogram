@@ -30,22 +30,22 @@ body {
     background-position: center;
 }
 .channels > div:nth-child(2) {
-    background-image: url(img/1.png);
+    background-image: url(/src/img/1.png);
 }
 .channels > div:nth-child(3) {
-    background-image: url(img/2.jpeg);
+    background-image: url(/src/img/2.jpeg);
 }
 .channels > div:nth-child(4) {
-    background-image: url(img/3.png);
+    background-image: url(/src/img/3.png);
 }
 .channels > div:nth-child(5) {
-    background-image: url(img/4.png);
+    background-image: url(/src/img/4.png);
 }
 .channels > div:nth-child(6) {
-    background-image: url(img/5.png);
+    background-image: url(/src/img/5.png);
 }
 .channels > div:nth-child(7) {
-    background-image: url(img/6.png);
+    background-image: url(/src/img/6.png);
 }
 
 .scheduleContainer {
