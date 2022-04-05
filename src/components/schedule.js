@@ -21,11 +21,10 @@ const Schedule = ({ program, day, minHour }) => {
                         const style = { width: item.dur * 5 + 'px' }
                         const styleLine = {}
                         if (k == 0) {
-                            const paddingLeft = ((item.hour - minHour) * 60 + item.min) * 5 + 'px'
-                            style.paddingLeft = paddingLeft
+                            const marginLeft = ((item.hour - minHour) * 60 + item.min) * 5 + 'px'
+                            style.marginLeft = marginLeft
 
                             if (day == 0) {
-                                styleLine.left = paddingLeft
                                 let hour = dayjs().hour()
                                 if (hour < 5) hour += 24
                                 const min = dayjs().minute()

@@ -86,6 +86,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 70px;
+    border-radius: 10px;
 }
 .item {
     display: block;
