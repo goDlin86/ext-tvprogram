@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { render } from 'react-dom'
+import { render, createRoot } from 'react-dom'
 
 import Days from './components/days'
 import Channels from './components/channels'
@@ -92,4 +92,4 @@ const App = () => {
     
 }
 
-render(<App />, document.getElementById('tv'))
+createRoot(document.getElementById('tv')).render(<App />)

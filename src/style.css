@@ -60,8 +60,7 @@ body {
     font-size: 0.85em;
     display: grid;
     grid-template-rows: 30px repeat(5, 70px);
-    /* grid-auto-rows: 4px; */
-    row-gap: 5px;
+    row-gap: 4px;
 }
 
 .schedule .row {
@@ -133,10 +132,38 @@ body {
     padding: 5px;
     text-align: center;
     cursor: pointer;
-    transition: color 0.2s ease-in;
+    transition: color, background-color 0.2s ease-in;
     font-weight: bold;
     color: var(--main-text-color);
+    text-transform: uppercase;
+    border-radius: 10px;
 }
 .days > div:hover, .days > div.active {
     color: var(--main-text-hover);
+    background-color: #171717;
+}
+.days .day {
+    font-size: 26px;
+}
+
+.button {
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s opacity;
+}
+.button:hover {
+    opacity: 1;
+}
+.period {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    line-height: 1;
+    font-size: 16px;
+    transition: transform 0.3s ease-in;
+}
+.period.out {
+    transform: translateY(20px);
 }
