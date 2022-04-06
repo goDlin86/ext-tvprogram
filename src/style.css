@@ -3,9 +3,9 @@
     --main-text-color: #A09F9F;
     --main-text-hover: #C9AA5C;
     --item-text-colr: #CFCFCF;
-    --line-bg-color: #BB3D28;
-    --item-bg-color: #333;
-    --item-bg-hover: rgba(100, 100, 100, 0.7);
+    --line-bg-color: #ff2400;
+    --item-bg-color: #1e1e1e;
+    --item-bg-hover: #303030;
 }
 
 body {
@@ -70,6 +70,7 @@ body {
 }
 .schedule .timeline > div {
     width: 300px;
+    font-size: 20px;
 }
 
 .schedule > .line {
