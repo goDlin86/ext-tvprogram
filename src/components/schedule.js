@@ -15,6 +15,12 @@ const Schedule = ({ program, day, minHour }) => {
         <>
             <div className="line" style={styleLine}></div>
 
+            {[...Array(minHour < 5 ? minHour : 29 - minHour).keys()].map(i => {
+                return (
+                    <div className="linehour" style={{ left: 300 * i + 'px' }}></div>
+                )
+            })}
+
             {program.map((p, i) => (
                 <div className='row'>
                     {p.map((item, k) => {

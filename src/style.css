@@ -69,17 +69,25 @@ body {
     align-items: center;
 }
 .schedule .timeline > div {
-    width: 300px;
+    width: 150px;
+    font-weight: bold;
+}
+.schedule .timeline > div:nth-child(2n-1) {
     font-size: 20px;
 }
 
-.schedule > .line {
+.schedule > .line, .schedule > .linehour {
     position: absolute;
     height: 100%;
     width: 2px;
     background-color: var(--line-bg-color);
     opacity: 0.6;
     z-index: 10;
+}
+.schedule > .linehour {
+    background-color: #494949;
+    width: 1px;
+    opacity: 0.2;
 }
 .schedule .program {
     position: relative;

@@ -3,8 +3,7 @@
   "version": "1.5",
   "description": "tv program",
   "scripts": {
-    "clean": "rm -rf dist/",
-    "build": "parcel build ./src/index.html --public-url ./"
+    "build": "rm -rf dist/ && parcel build ./src/index.html --public-url ./"
   },
   "keywords": [
     "tv",
