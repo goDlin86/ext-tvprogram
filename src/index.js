@@ -12,7 +12,7 @@ import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
 
-const channels = ['850', '977', '2060', '1395', '1671', '1266']
+const channels = ['850', '977', '2060', '1395', '1671', '3218']
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
@@ -34,6 +34,7 @@ const App = () => {
             const datas = await Promise.all(
                 urls.map(url => fetch(url + date.format("YYYY-MM-DD")).then(response => response.json()))
             )
+            console.log(datas)
 
             let programNew = []
             for (let i = 0; i < channels.length; i++) {
