@@ -12,7 +12,7 @@ import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
 
-const channels = ['850', '977', '2060', '1395', '1671', '3161']
+const channels = ['850', '977', '2060', '1395', '1671', '3161', '3218', '1091']
 
 const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]

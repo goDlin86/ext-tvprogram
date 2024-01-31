@@ -47,6 +47,12 @@ body {
 .channels > div:nth-child(7) {
     background-image: url(/src/img/6.png);
 }
+.channels > div:nth-child(8) {
+    background-image: url(/src/img/7.jpg);
+}
+.channels > div:nth-child(9) {
+    background-image: url(/src/img/8.webp);
+}
 
 .scheduleContainer {
     display: grid;
