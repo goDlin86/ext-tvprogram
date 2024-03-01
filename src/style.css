@@ -16,73 +16,67 @@ body {
     width: 760px;
 }
 
-.channels {
-    display: grid;
-    grid-template-rows: 30px repeat(5, 70px);
-    row-gap: 5px;
-    align-items: center;
-    justify-items: center;
-}
-
-.channels > div {
-    width: 32px;
-    height: 32px;
+.channel {
     background-position: center;
+    background-repeat: no-repeat;
 }
-.channels > div:nth-child(2) {
+.scheduleGrid > div:nth-child(3) {
     background-image: url(/src/img/1.png);
 }
-.channels > div:nth-child(3) {
+.scheduleGrid > div:nth-child(5) {
     background-image: url(/src/img/2.jpeg);
 }
-.channels > div:nth-child(4) {
+.scheduleGrid > div:nth-child(7) {
     background-image: url(/src/img/3.png);
 }
-.channels > div:nth-child(5) {
+.scheduleGrid > div:nth-child(9) {
     background-image: url(/src/img/4.png);
 }
-.channels > div:nth-child(6) {
+.scheduleGrid > div:nth-child(11) {
     background-image: url(/src/img/5.png);
 }
-.channels > div:nth-child(7) {
+.scheduleGrid > div:nth-child(13) {
     background-image: url(/src/img/6.png);
 }
-.channels > div:nth-child(8) {
+.scheduleGrid > div:nth-child(15) {
     background-image: url(/src/img/7.jpg);
 }
-.channels > div:nth-child(9) {
+.scheduleGrid > div:nth-child(17) {
     background-image: url(/src/img/8.webp);
 }
 
 .scheduleContainer {
+    overflow: scroll;
+    height: 480px;
+}
+.scheduleGrid {
     display: grid;
     grid-template-columns: 50px 1fr;
-    column-gap: 10px;
-}
-
-.schedule {
+    grid-template-rows: 30px repeat(8, 70px);
+    gap: 4px 10px;
     position: relative;
-    overflow: scroll;
-    font-size: 0.85em;
-    display: grid;
-    grid-template-rows: 30px repeat(5, 70px);
-    row-gap: 4px;
 }
 
-.schedule .row {
+.row {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.schedule .timeline > div {
+
+.sticky {
+    position: sticky;
+    background-color: #0A090A;
+    z-index: 99;
+}
+.timeline > div {
     width: 150px;
     font-weight: bold;
 }
-.schedule .timeline > div:nth-child(2n-1) {
+.timeline > div:nth-child(2n-1) {
     font-size: 20px;
 }
 
-.schedule > .line, .schedule > .linehour {
+.line, .linehour {
     position: absolute;
     height: 100%;
     width: 2px;
@@ -90,18 +84,19 @@ body {
     opacity: 0.6;
     z-index: 10;
 }
-.schedule > .linehour {
+.linehour {
     background-color: #494949;
     width: 1px;
     opacity: 0.2;
 }
-.schedule .program {
+.program {
     position: relative;
     height: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 70px;
     border-radius: 10px;
+    font-size: 0.85em;
 }
 .item {
     display: block;

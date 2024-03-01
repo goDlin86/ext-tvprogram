@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { render, createRoot } from 'react-dom'
 
 import Days from './components/days'
-import Channels from './components/channels'
 import Timeline from './components/timeline'
 import Schedule from './components/schedule'
 import './style.css'
@@ -82,10 +81,11 @@ const App = () => {
             <Days day={day} changeDate={changeDate} />
 
             <div className='scheduleContainer'>
-                <Channels />
-                <div className='schedule' ref={schedule}>
-                    <Timeline minHour={minHour} />
-                    <Schedule program={program} day={day} minHour={minHour} />
+                <div style={{ display: 'inline-block' }}>
+                    <div className='scheduleGrid' ref={schedule}>
+                        <Timeline minHour={minHour} />
+                        <Schedule program={program} day={day} minHour={minHour} />
+                    </div>
                 </div>
             </div>
         </div>
