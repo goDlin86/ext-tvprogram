@@ -44,6 +44,12 @@ body {
 .scheduleGrid > div:nth-child(17) {
     background-image: url(/src/img/8.webp);
 }
+.scheduleGrid > div:nth-child(19) {
+    background-image: url(/src/img/9.webp);
+}
+.scheduleGrid > div:nth-child(21) {
+    background-image: url(/src/img/10.webp);
+}
 
 .scheduleContainer {
     overflow: scroll;
@@ -52,7 +58,7 @@ body {
 .scheduleGrid {
     display: grid;
     grid-template-columns: 50px 1fr;
-    grid-template-rows: 30px repeat(8, 70px);
+    grid-template-rows: 30px repeat(10, 70px);
     gap: 4px 10px;
     position: relative;
 }
