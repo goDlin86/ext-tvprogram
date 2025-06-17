@@ -50,6 +50,15 @@ body {
 .scheduleGrid > div:nth-child(21) {
     background-image: url(/src/img/10.webp);
 }
+.scheduleGrid > div:nth-child(23) {
+    background-image: url(/src/img/11.webp);
+}
+.scheduleGrid > div:nth-child(25) {
+    background-image: url(/src/img/12.webp);
+}
+.scheduleGrid > div:nth-child(27) {
+    background-image: url(/src/img/13.webp);
+}
 
 .scheduleContainer {
     overflow: scroll;

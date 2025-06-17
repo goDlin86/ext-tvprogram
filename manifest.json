@@ -17,6 +17,7 @@
     },
 
     "host_permissions": [ 
-        "https://tv.mail.ru/voronezh/channel/*"
+        "https://tv.mail.ru/voronezh/channel/*",
+        "https://okko.tv/tv_program/*"
     ]
 }

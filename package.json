@@ -12,11 +12,13 @@
   "author": "goDlin",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1",
     "dayjs": "^1",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
     "parcel": "^2"
   }
 }
