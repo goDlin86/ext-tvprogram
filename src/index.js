@@ -43,7 +43,7 @@ const App = () => {
             datas.map((tv, i) => {
                 tv.schedule[0].event.current.map(cur => {
                     const time = cur.start
-                    const title = [cur.name, cur.episode_title].join(' ')
+                    const title = [cur.name, cur.episode_title].join(' ').replaceAll("&#34;", '"')
                     const url = 'https://tv.mail.ru' + cur.url
 
                     let hour = parseInt(time.split(":")[0])
