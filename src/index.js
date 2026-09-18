@@ -10,11 +10,11 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
-import * as cheerio from 'cheerio'
+//import * as cheerio from 'cheerio'
 
 const channels = ['850', '977', '2060', '1395', '1671', '3161', '3218', '1091', '3215', '3296', '1836', '919']
 
-const baseUrl = 'https://tv.mail.ru/ajax/channel/?region_id=24&channel_type=&channel_id='
+const baseUrl = 'https://tv.mail.ru/ajax/service/channels/schedule/?region_id=24&channel_id='
 const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
 
 const App = () => {
@@ -40,43 +40,46 @@ const App = () => {
             for (let i = 0; i < channels.length; i++) {
                 programNew.push([])                
             }
+            const now = new Date().getTime() / 1000
             datas.map((tv, i) => {
-                tv.schedule[0].event.current.map(cur => {
-                    const time = cur.start
-                    const title = [cur.name, cur.episode_title].join(' ').replaceAll("&#34;", '"')
-                    const url = 'https://tv.mail.ru' + cur.url
+                tv.data.events.map(cur => {
+                    if (cur.stop_ts > now) {
+                        const time = cur.start
+                        const title = [cur.name, cur.episode_title].join(' ').replaceAll("&#34;", '"')
+                        const url = 'https://tv.mail.ru' + cur.url
 
-                    let hour = parseInt(time.split(":")[0])
-                    if (hour < 5) hour += 24
-                    const min = parseInt(time.split(":")[1])
+                        let hour = parseInt(time.split(":")[0])
+                        if (hour < 5) hour += 24
+                        const min = parseInt(time.split(":")[1])
 
-                    programNew[i].push({ time, title, url, hour, min })
+                        programNew[i].push({ time, title, url, hour, min })
+                    }
                 })
             })
 
             setMinHour(Math.min(...programNew.map(p => p[0] ? p[0].hour : 29)))
 
-            //add okko
-            const okko = await fetch('https://okko.tv/tv_program/540281728/' + date.format('MMMM_DD'))
-            const body = await okko.text()
-            const $ = cheerio.load(body)
+            // add okko
+            // const okko = await fetch('https://okko.tv/tv_program/540281728/' + date.format('MMMM_DD'))
+            // const body = await okko.text()
+            // const $ = cheerio.load(body)
 
-            const okkotv = $('ul.__2JxkwQL6 > li').toArray().map(li => {
-                const div = $(li).children('div')
-                const div1 = $(div[1]).children('div')
-                const time = $(div[0]).text()
-                let hour = parseInt(time.split(":")[0])
-                if (hour < 5) hour += 24
-                const min = parseInt(time.split(":")[1])
-                return {
-                    time,
-                    title: $(div1[0]).text(),
-                    url: $(div1[1]).children('div').children('a').attr('href'),
-                    hour,
-                    min
-                }
-            })
-            programNew.push(okkotv)
+            // const okkotv = $('ul.__2JxkwQL6 > li').toArray().map(li => {
+            //     const div = $(li).children('div')
+            //     const div1 = $(div[1]).children('div')
+            //     const time = $(div[0]).text()
+            //     let hour = parseInt(time.split(":")[0])
+            //     if (hour < 5) hour += 24
+            //     const min = parseInt(time.split(":")[1])
+            //     return {
+            //         time,
+            //         title: $(div1[0]).text(),
+            //         url: $(div1[1]).children('div').children('a').attr('href'),
+            //         hour,
+            //         min
+            //     }
+            // })
+            // programNew.push(okkotv)
 
             programNew.map(p => 
                 p.map((item, i, program) => {
