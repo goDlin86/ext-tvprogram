@@ -14,8 +14,7 @@ dayjs.locale('ru')
 
 const channels = ['850', '977', '2060', '1395', '1671', '3161', '3218', '1091', '3215', '3296', '1836', '919']
 
-const baseUrl = 'https://tv.mail.ru/ajax/service/channels/schedule/?region_id=24&channel_id='
-const urls = [...channels.map(channel => baseUrl + channel + '&date=')]
+const baseUrl = 'https://tv.mail.ru/ajax/service/channels/schedule/'
 
 const App = () => {
     const [day, setDay] = useState(0)
@@ -28,11 +27,39 @@ const App = () => {
     useEffect(() => {
         fetchData()
     }, [day])
-    
+
     const fetchData = async () => {
         try {
+            const r = await fetch(baseUrl, 
+                {
+                    "headers": {
+                        "accept": "application/json",
+                    },
+                    method: 'POST'
+                }
+            )
+            const csrf = await r.json()
+
             const datas = await Promise.all(
-                urls.map(url => fetch(url + date.format('YYYY-MM-DD')).then(response => response.json()))
+                channels.map(channel => 
+                    fetch(baseUrl, 
+                        {
+                            "headers": {
+                                "accept": "application/json",
+                                "content-Type": "application/json",
+                                "x-csrf-token": csrf.csrf_token
+                            },
+                            method: 'POST', 
+                            body: JSON.stringify(
+                                { 
+                                    region_id: 24, 
+                                    channel_id: channel, 
+                                    date: date.format('YYYY-MM-DD') 
+                                }
+                            ) 
+                        }
+                    )
+                .then(response => response.json()))
             )
             console.log(datas)
 
